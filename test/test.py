@@ -1,5 +1,5 @@
 #coding=utf-8
-import itertools;
+import itertools as its
 import random
 import string
 # a=[1,2,3];
@@ -24,32 +24,39 @@ import string
 #     print('Time: ',nowtime)
 #     return nowtime
 
+import  itertools,string
+import sys
 
-def get_random_str(type,num,count=None):
-    data = ''
-    strarr = []
-    if count == None:
-        count = 1
+# 获取数据
+def dict(num,bad):
+    words = "0123456789"
+    # words = string.digits
 
-    if type == "d":
-        data = string.digits
-    elif type == "low":
-        data = string.ascii_lowercase
-    elif type == "upper":
-        data = string.ascii_uppercase
-    elif type == "l":
-        data == string.ascii_letters
-    elif type == "dl":
-        data = string.digits + string.ascii_letters
-    elif type == "dlp":
-        data = string.digits + string.ascii_letters + string.punctuation
-    print('data: ',data)
-    print('count: ',count)
-    print('num: ',num)
-    for i in range(count):
-        str = random.sample(data, num)
-        strarr.append(''.join(str))
-    print("string list: ",strarr)
-    return strarr
+    r = its.product(words, repeat=num)
+    for i in r:
+        # 去重
+        if len(set(i)) != num:
+            continue
+        #去除指定数字
+        result = ''.join(i)
+        if result.__contains__(str(bad)):
+            continue
+        print(result)
 
-get_random_str('dl',10,12)
+def dicts(num,bad,times):
+    for i in range(times):
+        dict(num,bad)
+
+def readdata():
+    result = []
+    for i in range(2):
+        line = sys.stdin.readline().strip()
+        data = line.split(' ')
+        result.append(data)
+    return result
+
+
+if __name__ == '__main__':
+    data = readdata()
+    dicts(int(data[0][0]),data[0][1],int(data[1][0]))
+

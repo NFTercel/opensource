@@ -26,10 +26,12 @@ class ReadIni(object):
         cf.read(file)
         return cf
 
-    #获取数据
+    # #获取数据
     def get_value(self,key):
         data = self.cf.get(self.node,key)
         return data
+
+
 
 if __name__ == '__main__':
     read_init = ReadIni()
